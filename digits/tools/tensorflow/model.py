@@ -108,7 +108,9 @@ class Model(object):
             with tf.name_scope(digits.GraphKeys.LOADER):
                 self.dataloader.create_input_pipeline()
 
-    def create_model(self, obj_UserModel, stage_scope, batch_x=None):
+    def create_model(self, obj_UserModel, stage_scope, batch_x=None, remote_gpus=None):
+        if remote_gpus is None:
+            remote_gpus = []
 
         if batch_x is None:
             self.init_dataloader()
@@ -120,6 +122,7 @@ class Model(object):
             batch_x = batch_x
 
         available_devices = digits.get_available_gpus()
+        available_devices.extend(remote_gpus)
         if not available_devices:
             available_devices.append('/cpu:0')
 

@@ -1,5 +1,5 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 
 import imp
 import os
@@ -7,6 +7,7 @@ import platform
 import re
 import subprocess
 import sys
+import traceback
 
 from . import option_list
 from digits import device_query
@@ -37,9 +38,9 @@ def load_from_envvar(envvar):
         import_pycaffe(python_dir)
         version, flavor = get_version_and_flavor(executable)
     except:
-        print ('"%s" from %s does not point to a valid installation of Caffe.'
-               % (value, envvar))
-        print 'Use the envvar CAFFE_ROOT to indicate a valid installation.'
+        print('"%s" from %s does not point to a valid installation of Caffe.'
+            % (value, envvar))
+        print('Use the envvar CAFFE_ROOT to indicate a valid installation.')
         raise
     return executable, version, flavor
 
@@ -57,9 +58,9 @@ def load_from_path():
         import_pycaffe()
         version, flavor = get_version_and_flavor(executable)
     except:
-        print 'A valid Caffe installation was not found on your system.'
-        print 'Use the envvar CAFFE_ROOT to indicate a valid installation.'
-        raise
+        print('A valid Caffe installation was not found on your system.')
+        print('Use the envvar CAFFE_ROOT to indicate a valid installation.')
+        return None, None, None
     return executable, version, flavor
 
 
@@ -125,8 +126,8 @@ def import_pycaffe(dirname=None):
     try:
         import caffe
     except ImportError:
-        print 'Did you forget to "make pycaffe"?'
-        raise
+        print('Did you forget to "make pycaffe"?')
+        return
 
     # Strange issue with protocol buffers and pickle - see issue #32
     sys.path.insert(0, os.path.join(
@@ -181,7 +182,7 @@ def get_version_from_cmdline(executable):
     command = [executable, '-version']
     p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if p.wait():
-        print p.stderr.read().strip()
+        print(p.stderr.read().strip())
         raise RuntimeError('"%s" returned error code %s' % (command, p.returncode))
 
     pattern = 'version'
@@ -195,7 +196,7 @@ def get_version_from_soname(executable):
     command = ['ldd', executable]
     p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if p.wait():
-        print p.stderr.read().strip()
+        print(p.stderr.read().strip())
         raise RuntimeError('"%s" returned error code %s' % (command, p.returncode))
 
     # Search output for caffe library
@@ -230,9 +231,10 @@ else:
     executable, version, flavor = load_from_path()
 
 option_list['caffe'] = {
+    'enabled': version is not None,
     'executable': executable,
     'version': version,
     'flavor': flavor,
-    'multi_gpu': (flavor == 'BVLC' or parse_version(version) >= parse_version(0, 12)),
+    'multi_gpu': (version is not None and (flavor == 'BVLC' or parse_version(version) >= parse_version(0, 12))),
     'cuda_enabled': (len(device_query.get_devices()) > 0),
 }

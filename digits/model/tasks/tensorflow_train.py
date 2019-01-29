@@ -459,7 +459,7 @@ class TensorflowTrainTask(TrainTask):
                 self.traceback = traceback
 
             if 'DIGITS_MODE_TEST' in os.environ:
-                print output
+                print(output)
 
     @override
     def detect_timeline_traces(self):

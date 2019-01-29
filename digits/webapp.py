@@ -22,7 +22,7 @@ app.config['DEBUG'] = True
 # Disable CSRF checking in WTForms
 app.config['WTF_CSRF_ENABLED'] = False
 # This is still necessary for SocketIO
-app.config['SECRET_KEY'] = os.urandom(12).encode('hex')
+app.config['SECRET_KEY'] = os.urandom(12).hex()
 app.url_map.redirect_defaults = False
 app.config['URL_PREFIX'] = url_prefix
 socketio = SocketIO(app, async_mode='gevent', path=url_prefix+'/socket.io')
@@ -94,7 +94,7 @@ def username_decorator(f):
         return f(*args, **kwargs)
     return decorated
 
-for endpoint, function in app.view_functions.iteritems():
+for endpoint, function in app.view_functions.items():
     app.view_functions[endpoint] = username_decorator(function)
 
 # Setup the environment

@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 
 from collections import OrderedDict
 import copy
@@ -26,6 +26,7 @@ from digits.utils.filesystem import tail
 # Must import after importing digit.config
 import caffe
 import caffe_pb2
+
 
 # NOTE: Increment this every time the pickled object changes
 PICKLE_VERSION = 5
@@ -1136,7 +1137,7 @@ class CaffeTrainTask(TrainTask):
             # return the last 20 lines
             self.traceback = '\n'.join(lines[len(lines) - 20:])
             if 'DIGITS_MODE_TEST' in os.environ:
-                print output
+                print(output)
 
     # TrainTask overrides
 
@@ -1476,7 +1477,7 @@ class CaffeTrainTask(TrainTask):
             else:
                 for name, blob in output.iteritems():
                     outputs[name] = np.vstack((outputs[name], blob))
-            print 'Processed %s/%s images' % (len(outputs[outputs.keys()[0]]), len(caffe_images))
+            print('Processed %s/%s images' % (len(outputs[outputs.keys()[0]]), len(caffe_images)))
 
         return outputs
 

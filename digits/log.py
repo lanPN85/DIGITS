@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 
 import logging
 import logging.handlers
@@ -13,11 +13,11 @@ DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 class JobIdLogger(logging.Logger):
 
-    def makeRecord(self, name, level, fn, lno, msg, args, exc_info, func=None, extra=None):
+    def makeRecord(self, name, level, fn, lno, msg, args, exc_info, func=None, extra=None, sinfo=None):
         """
         Customizing it to set a default value for extra['job_id']
         """
-        rv = logging.LogRecord(name, level, fn, lno, msg, args, exc_info, func)
+        rv = logging.LogRecord(name, level, fn, lno, msg, args, exc_info, func=func)
         if extra is not None:
             for key in extra:
                 if (key in ["message", "asctime"]) or (key in rv.__dict__):
@@ -95,7 +95,7 @@ def setup_logging():
 
         return JobIdLoggerAdapter(webapp_logger, {})
     else:
-        print 'WARNING: log_file config option not found - no log file is being saved'
+        print('WARNING: log_file config option not found - no log file is being saved')
         return JobIdLoggerAdapter(main_logger, {})
 
 # Do it when this module is loaded

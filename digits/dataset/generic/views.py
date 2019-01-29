@@ -6,9 +6,8 @@ import os
 try:
     from cStringIO import StringIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO
 
-import caffe_pb2
 import flask
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -174,27 +173,31 @@ def explore():
 
     max_page = min((total_entries - 1) / size, page + 5)
     pages = range(min_page, max_page + 1)
-    for key, value in reader.entries():
-        if count >= page * size:
-            datum = caffe_pb2.Datum()
-            datum.ParseFromString(value)
-            if not datum.encoded:
-                raise RuntimeError("Expected encoded database")
-            s = StringIO()
-            s.write(datum.data)
-            s.seek(0)
-            img = PIL.Image.open(s)
-            if cmap and img.mode in ['L', '1']:
-                data = np.array(img)
-                data = cmap.to_rgba(data) * 255
-                data = data.astype('uint8')
-                # keep RGB values only, remove alpha channel
-                data = data[:, :, 0:3]
-                img = PIL.Image.fromarray(data)
-            imgs.append({"label": None, "b64": utils.image.embed_image_html(img)})
-        count += 1
-        if len(imgs) >= size:
-            break
+    try:
+        import caffe_pb2
+        for key, value in reader.entries():
+            if count >= page * size:
+                datum = caffe_pb2.Datum()
+                datum.ParseFromString(value)
+                if not datum.encoded:
+                    raise RuntimeError("Expected encoded database")
+                s = StringIO()
+                s.write(datum.data)
+                s.seek(0)
+                img = PIL.Image.open(s)
+                if cmap and img.mode in ['L', '1']:
+                    data = np.array(img)
+                    data = cmap.to_rgba(data) * 255
+                    data = data.astype('uint8')
+                    # keep RGB values only, remove alpha channel
+                    data = data[:, :, 0:3]
+                    img = PIL.Image.fromarray(data)
+                imgs.append({"label": None, "b64": utils.image.embed_image_html(img)})
+            count += 1
+            if len(imgs) >= size:
+                break
+    except:
+        pass
 
     return flask.render_template(
         'datasets/images/explore.html',

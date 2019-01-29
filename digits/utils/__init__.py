@@ -9,7 +9,7 @@ import os
 import pkg_resources
 import platform
 from random import uniform
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 if not platform.system() == 'Windows':
     import fcntl
@@ -83,7 +83,7 @@ def subclass(cls):
     Verify all @override methods
     Use a class decorator to find the method's class
     """
-    for name, method in cls.__dict__.iteritems():
+    for name, method in cls.__dict__.items():
         if hasattr(method, 'override'):
             found = False
             for base_class in inspect.getmro(cls)[1:]:
@@ -155,6 +155,8 @@ def parse_version(*args):
 
     if v.startswith('v'):
         v = v[1:]
+    if v == 'None':
+        return None
 
     try:
         return pkg_resources.SetuptoolsVersion(v)
