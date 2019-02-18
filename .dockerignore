@@ -1,0 +1,6 @@
+venv/
+docs/
+packaging/
+mnt/
+
+*.egg-info
