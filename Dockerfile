@@ -12,6 +12,7 @@ RUN apt-get install -y --no-install-recommends \
         libleveldb-dev liblmdb-dev \
         libopencv-dev libprotobuf-dev \
         libsnappy-dev protobuf-compiler \
+        libjpeg-turbo\
         python3-dev python3-pip
 
 WORKDIR /libs/
