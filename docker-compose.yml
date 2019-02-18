@@ -10,5 +10,8 @@ services:
       - type: bind
         source: ./mnt
         target: /mnt/host
+      - type: bind
+        source: ./examples
+        target: /app/examples
     environment:
       - DIGITS_JOB_DIR=/mnt/host/jobs

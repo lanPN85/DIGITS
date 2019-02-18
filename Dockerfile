@@ -18,9 +18,11 @@ WORKDIR /libs/
 # Install caffe
 RUN git clone https://github.com/NVIDIA/caffe.git --depth 1
 RUN cd caffe && git fetch --all --tags --prune && git checkout "tags/v0.17.2"
-RUN cd caffe/python && for req in $(cat requirements.txt) pydot; do pip install $req; done
+RUN cd caffe/python && for req in $(cat requirements.txt) pydot; do pip3 install $req; done
 RUN git clone https://github.com/NVIDIA/nccl.git && cd nccl && make -j${BUILD_CORES} install
 RUN cd caffe && mkdir build && cd build && cmake .. -DUSE_CUDNN=1 -DUSE_NCCL=1 && make -j${BUILD_CORES}
+RUN pip3 install protobuf>=3.0.0 python-dateutil
+RUN cd caffe/build && make pycaffe -j${BUILD_CORES}
 RUN echo "$CAFFE_ROOT/build/lib" >> /etc/ld.so.conf.d/caffe.conf && ldconfig
 ENV CAFFE_ROOT=/libs/caffe
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python

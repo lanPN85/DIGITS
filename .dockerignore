@@ -2,5 +2,6 @@ venv/
 docs/
 packaging/
 mnt/
+examples/
 
 *.egg-info
