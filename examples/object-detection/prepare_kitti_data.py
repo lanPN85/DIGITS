@@ -16,7 +16,7 @@ def extract_data(input_dir, output_dir):
     Extract zipfiles at input_dir into output_dir
     """
     if os.path.isdir(output_dir):
-        print '  Using extracted data at %s.' % output_dir
+        print('  Using extracted data at %s.' % output_dir)
         return
 
     for filename in (
@@ -25,7 +25,7 @@ def extract_data(input_dir, output_dir):
             'devkit_object.zip'):
         filename = os.path.join(input_dir, filename)
         zf = zipfile.ZipFile(filename, 'r')
-        print 'Unzipping %s ...' % filename
+        print('Unzipping %s ...' % filename)
         zf.extractall(output_dir)
 
 
@@ -92,7 +92,7 @@ def split_by_video(training_dir, mapping, split_dir,
         if use_symlinks:
             os.symlink(old_image_path, new_image_path)
         else:
-            shutil.copyfile(old_image_path, new_image_path)
+            shutil.copy2(old_image_path, new_image_path)
 
         # Copy label
         old_label_fname = '%s.txt' % image_index_str
@@ -105,7 +105,7 @@ def split_by_video(training_dir, mapping, split_dir,
         if use_symlinks:
             os.symlink(old_label_path, new_label_path)
         else:
-            shutil.copyfile(old_label_path, new_label_path)
+            shutil.copy2(old_label_path, new_label_path)
 
 
 def split_for_training(split_dir, train_dir, val_dir,
@@ -172,27 +172,27 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    print 'Extracting zipfiles ...'
+    print('Extracting zipfiles ...')
     extract_data(
         args.input_dir,
         os.path.join(args.output_dir, 'raw'),
     )
-    print 'Calculating image to video mapping ...'
+    print('Calculating image to video mapping ...')
     mapping = get_image_to_video_mapping(
         os.path.join(args.output_dir, 'raw'),
     )
-    print 'Splitting images by video ...'
+    print('Splitting images by video ...')
     split_by_video(
         os.path.join(args.output_dir, 'raw', 'training'),
         mapping,
         os.path.join(args.output_dir, 'video-split'),
         use_symlinks=(not args.no_symlinks),
     )
-    print 'Creating train/val split ...'
+    print('Creating train/val split ...')
     split_for_training(
         os.path.join(args.output_dir, 'video-split'),
         os.path.join(args.output_dir, 'train'),
         os.path.join(args.output_dir, 'val'),
         use_symlinks=(not args.no_symlinks),
     )
-    print 'Done.'
+    print('Done.')
