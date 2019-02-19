@@ -16,6 +16,21 @@ from digits.utils.constants import COLOR_PALETTE_ATTRIBUTE
 from digits.extensions.data.interface import DataIngestionInterface
 from .forms import DatasetForm, InferenceForm
 
+# Patch for python3
+try:
+    unicode = unicode
+except NameError:
+    # 'unicode' is undefined, must be Python 3
+    str = str
+    unicode = str
+    bytes = bytes
+    basestring = (str,bytes)
+else:
+    # 'unicode' exists, must be Python 2
+    str = str
+    unicode = unicode
+    bytes = str
+    basestring = basestring
 
 DATASET_TEMPLATE = "templates/dataset_template.html"
 INFERENCE_TEMPLATE = "templates/inference_template.html"
