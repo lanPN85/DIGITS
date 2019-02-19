@@ -247,8 +247,10 @@ class Scheduler:
         Deletes an entire job folder from disk
         Returns True if the Job was found and deleted
         """
-        if isinstance(job, str) or isinstance(job, unicode):
+        if isinstance(job, str):
             job_id = str(job)
+        elif isinstance(job, bytes):
+            job_id = job.decode('utf-8')
         elif isinstance(job, Job):
             job_id = job.id()
         else:
