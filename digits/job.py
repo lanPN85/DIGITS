@@ -55,7 +55,7 @@ class Job(StatusCls):
         super(Job, self).__init__()
 
         # create a unique ID
-        self._id = '%s-%08x' % (time.strftime('%Y%m%d-%H%M%S'), os.urandom(2))
+        self._id = '%s-%08x' % (time.strftime('%Y%m%d-%H%M%S'), int.from_bytes(os.urandom(2), 'big'))
         self._dir = os.path.join(config_value('jobs_dir'), self._id)
         self._name = name
         self.group = group
