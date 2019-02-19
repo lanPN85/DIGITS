@@ -27,7 +27,7 @@ def validate_required_iff(**kwargs):
         if all_conditions_met:
             # Verify that data exists
             if field.data is None \
-                    or (isinstance(field.data, (str, unicode)) and not field.data.strip()) \
+                    or (isinstance(field.data, (str, bytes)) and not field.data.strip()) \
                     or (isinstance(field.data, FileStorage) and not field.data.filename.strip()):
                 raise validators.ValidationError('This field is required.')
         else:
@@ -51,7 +51,7 @@ def validate_required_if_set(other_field, **kwargs):
         if other_field_value:
             # Verify that data exists
             if field.data is None or \
-                    (isinstance(field.data, (str, unicode)) and not field.data.strip()) \
+                    (isinstance(field.data, (str, bytes)) and not field.data.strip()) \
                     or (isinstance(field.data, FileStorage) and not field.data.filename.strip()):
                 raise validators.ValidationError('This field is required if %s is set.' % other_field)
         else:
