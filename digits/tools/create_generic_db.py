@@ -12,7 +12,7 @@ import logging
 import numpy as np
 import os
 import PIL.Image
-import Queue
+import queue as Queue
 import sys
 import threading
 
