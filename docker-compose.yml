@@ -14,4 +14,4 @@ services:
         source: ./examples
         target: /app/examples
     environment:
-      - DIGITS_JOB_DIR=/mnt/host/jobs
+      - DIGITS_JOBS_DIR=/mnt/host/jobs
