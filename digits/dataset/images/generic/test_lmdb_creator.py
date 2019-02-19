@@ -13,7 +13,7 @@ import time
 
 # Find the best implementation available
 try:
-    from io import StringIO
+    from io import StringIO, BytesIO
 except ImportError:
     from StringIO import StringIO
 
@@ -90,7 +90,7 @@ def create_lmdbs(folder, image_width=None, image_height=None, image_count=None):
             image_datum.height = image.shape[0]
             image_datum.width = image.shape[1]
             image_datum.channels = 1
-            s = StringIO()
+            s = BytesIO()
             pil_img.save(s, format='PNG')
             image_datum.data = s.getvalue()
             image_datum.encoded = True

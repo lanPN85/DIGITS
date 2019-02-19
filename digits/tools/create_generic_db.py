@@ -4,7 +4,7 @@
 import argparse
 # Find the best implementation available
 try:
-    from io import StringIO
+    from io import StringIO, BytesIO
 except ImportError:
     from StringIO import StringIO
 import lmdb
@@ -128,7 +128,7 @@ class LmdbWriter(DbWriter):
             if data.shape[2] == 1:
                 # grayscale
                 data = data[:, :, 0]
-            s = StringIO()
+            s = BytesIO()
             if encoding == 'png':
                 PIL.Image.fromarray(data).save(s, format='PNG')
             elif encoding == 'jpg':

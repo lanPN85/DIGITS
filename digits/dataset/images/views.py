@@ -5,9 +5,9 @@ import os.path
 
 # Find the best implementation available
 try:
-    from io import StringIO
+    from io import StringIO, BytesIO
 except ImportError:
-    from io import StringIO
+    from io import StringIO, BytesIO
 
 import flask
 import PIL.Image
@@ -42,7 +42,7 @@ def resize_example():
         if backend != 'lmdb' or encoding == 'none':
             length = len(image.tostring())
         else:
-            s = StringIO()
+            s = BytesIO()
             if encoding == 'png':
                 PIL.Image.fromarray(image).save(s, format='PNG')
             elif encoding == 'jpg':

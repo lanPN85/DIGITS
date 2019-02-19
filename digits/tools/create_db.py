@@ -16,7 +16,7 @@ import time
 
 # Find the best implementation available
 try:
-    from io import StringIO
+    from io import StringIO, BytesIO
 except ImportError:
     from StringIO import StringIO
 
@@ -738,7 +738,7 @@ def _array_to_tf_feature(image, label, encoding):
         image_raw = image.tostring()
         encoding_id = 0
     else:
-        s = StringIO()
+        s = BytesIO()
         if encoding == 'png':
             PIL.Image.fromarray(image).save(s, format='PNG')
             encoding_id = 1
@@ -795,7 +795,7 @@ def _array_to_datum(image, label, encoding):
         datum.width = image.shape[1]
         datum.label = label
 
-        s = StringIO()
+        s = BytesIO()
         if encoding == 'png':
             PIL.Image.fromarray(image).save(s, format='PNG')
         elif encoding == 'jpg':

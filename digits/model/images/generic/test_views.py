@@ -854,10 +854,10 @@ class UserModel(Tower):
         x = x.astype('uint8')
         pil_img = PIL.Image.fromarray(x)
         # create output stream
-        s = StringIO()
+        s = BytesIO()
         pil_img.save(s, format="png")
         # create input stream
-        s = StringIO(s.getvalue())
+        s = BytesIO(s.getvalue())
         image_upload = (s, 'image.png')
         # post request
         rv = self.app.post(
