@@ -165,9 +165,9 @@ def models():
     """
     if flask.request.args.get('refresh') == '1':
         app.config['store_cache'].reset()
-    cached_data = app.config['store_cache'].read().decode()
+    cached_data = app.config['store_cache'].read()
     if cached_data is not None:
-        return json.dumps(cached_data)
+        return json.dumps(cached_data.decode())
 
     store_urls = app.config['store_url_list']
     aggregated_dict = dict()
