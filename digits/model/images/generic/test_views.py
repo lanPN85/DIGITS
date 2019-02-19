@@ -12,7 +12,7 @@ import unittest
 
 # Find the best implementation available
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
     from StringIO import StringIO
 

@@ -4,7 +4,7 @@ from __future__ import absolute_import
 import os
 # Find the best implementation available
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
     from io import StringIO
 
