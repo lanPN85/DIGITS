@@ -365,7 +365,7 @@ class TrainTask(Task):
             d[name].data.append(value)
         else:
             # we might have missed one
-            for _ in xrange(epoch_len - name_len - 1):
+            for _ in range(epoch_len - name_len - 1):
                 d[name].data.append(None)
             d[name].data.append(value)
 

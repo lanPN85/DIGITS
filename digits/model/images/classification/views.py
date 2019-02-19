@@ -586,7 +586,7 @@ def classify_many():
             top1_accuracy = round(100.0 * n_top1_accurate / n_ground_truth, 2)
             top5_accuracy = round(100.0 * n_top5_accurate / n_ground_truth, 2)
             per_class_accuracy = []
-            for x in xrange(n_labels):
+            for x in range(n_labels):
                 n_examples = sum(confusion_matrix[x])
                 per_class_accuracy.append(
                     round(100.0 * confusion_matrix[x, x] / n_examples, 2) if n_examples > 0 else None)
@@ -689,9 +689,9 @@ def top_n():
         images_per_category = min(top_n, len(images))
         # Can't have more categories than the number of labels or the number of outputs
         n_categories = min(indices.shape[1], len(labels))
-        for i in xrange(n_categories):
+        for i in range(n_categories):
             result_images = []
-            for j in xrange(images_per_category):
+            for j in range(images_per_category):
                 result_images.append(images[indices[j][i]])
             results.append((
                 labels[i],

@@ -54,7 +54,7 @@ class MnistDownloader(DataDownloader):
         output_dir = os.path.join(self.outdir, phase)
         self.mkdir(output_dir, clean=True)
         with open(os.path.join(output_dir, 'labels.txt'), 'w') as outfile:
-            for label in xrange(10):
+            for label in range(10):
                 outfile.write('%s\n' % label)
         with open(os.path.join(output_dir, '%s.txt' % phase), 'w') as outfile:
             for index, image in enumerate(images):
@@ -91,7 +91,7 @@ class MnistDownloader(DataDownloader):
             rows = struct.unpack('>i', infile.read(4))[0]
             columns = struct.unpack('>i', infile.read(4))[0]
 
-            for i in xrange(count):
+            for i in range(count):
                 data = infile.read(rows * columns)
                 image = np.fromstring(data, dtype=np.uint8)
                 image = image.reshape((rows, columns))

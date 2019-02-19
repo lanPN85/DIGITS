@@ -302,7 +302,7 @@ class DbCreator(object):
 
             # create and fill encoder queue
             encoder_queue = Queue.Queue()
-            batch_indices = xrange(0, len(entry_ids), batch_size)
+            batch_indices = range(0, len(entry_ids), batch_size)
             for batch in [entry_ids[start:start+batch_size] for start in batch_indices]:
                 # queue this batch
                 encoder_queue.put(batch)
@@ -319,7 +319,7 @@ class DbCreator(object):
 
             # create encoder threads
             encoders = []
-            for _ in xrange(num_threads):
+            for _ in range(num_threads):
                 encoder = Encoder(encoder_queue, writer, extension, error_queue, force_same_shape)
                 encoder.daemon = True
                 encoder.start()

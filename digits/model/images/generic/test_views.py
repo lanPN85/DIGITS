@@ -364,7 +364,7 @@ class BaseTestCreation(BaseViewsTestWithDataset):
     def test_select_gpus(self):
         # test all possible combinations
         gpu_list = config_value('gpu_list').split(',')
-        for i in xrange(len(gpu_list)):
+        for i in range(len(gpu_list)):
             for combination in itertools.combinations(gpu_list, i + 1):
                 yield self.check_select_gpus, combination
 

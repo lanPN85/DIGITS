@@ -26,7 +26,7 @@ import logging
 import math
 import numpy as np
 import os
-from six.moves import xrange  # noqa
+from six.moves import range  # noqa
 import tensorflow as tf
 import tensorflow.contrib.slim as slim  # noqa
 from tensorflow.python.client import timeline, device_lib  # noqa

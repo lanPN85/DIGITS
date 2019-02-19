@@ -74,7 +74,7 @@ def create_lmdbs(folder, image_width=None, image_height=None, image_count=None):
 
         image_sum = np.zeros((image_height, image_width), 'float64')
 
-        for i in xrange(image_count):
+        for i in range(image_count):
             xslope, yslope = np.random.random_sample(2) - 0.5
             a = xslope * 255 / image_width
             b = yslope * 255 / image_height

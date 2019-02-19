@@ -185,7 +185,7 @@ def visualize_lr():
     datalist = []
     for j, lr in enumerate(lrs):
         data = ['Learning Rate %d' % j]
-        for i in xrange(101):
+        for i in range(101):
             if policy == 'fixed':
                 data.append(lr)
             elif policy == 'step':

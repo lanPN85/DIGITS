@@ -42,8 +42,8 @@ class BaseTest():
         cls.pil_image_gray.save(cls.gray_image_file[1])
 
         cls.image_count = 0
-        for i in xrange(3):
-            for j in xrange(3):
+        for i in range(3):
+            for j in range(3):
                 os.write(cls.good_file[0], '%s %s\n' % (cls.color_image_file[1], i))
                 os.write(cls.good_file[0], '%s %s\n' % (cls.gray_image_file[1], i))
                 cls.image_count += 2

@@ -1413,7 +1413,7 @@ class CaffeTrainTask(TrainTask):
         y, x = np.histogram(data, bins=20)
         y = list(y.astype(np.float32))
         ticks = x[[0, len(x) / 2, -1]]
-        x = [((x[i] + x[i + 1]) / 2.0).astype(np.float32) for i in xrange(len(x) - 1)]
+        x = [((x[i] + x[i + 1]) / 2.0).astype(np.float32) for i in range(len(x) - 1)]
         ticks = list(ticks.astype(np.float32))
         return (mean, std, [y, x, ticks])
 
@@ -1460,7 +1460,7 @@ class CaffeTrainTask(TrainTask):
             data_shape = (constants.DEFAULT_BATCH_SIZE,) + data_shape
 
         outputs = None
-        for chunk in [caffe_images[x:x + data_shape[0]] for x in xrange(0, len(caffe_images), data_shape[0])]:
+        for chunk in [caffe_images[x:x + data_shape[0]] for x in range(0, len(caffe_images), data_shape[0])]:
             new_shape = (len(chunk),) + data_shape[1:]
             if net.blobs['data'].data.shape != new_shape:
                 net.blobs['data'].reshape(*new_shape)

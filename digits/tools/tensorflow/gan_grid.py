@@ -28,7 +28,7 @@ import numpy as np
 import os
 import pickle
 
-from six.moves import xrange
+from six.moves import range
 import tensorflow as tf
 from tensorflow.python.client import timeline
 from tensorflow.python.lib.io import file_io
@@ -446,7 +446,7 @@ def input_generator(zs_file, batch_size):
     indices_init = (indices * batch_size + epoch) % img_count
     indices_final = (indices_init + 1) % img_count
 
-    for i in xrange(batch_size):
+    for i in range(batch_size):
         z_init = zs[indices_init[i]]
         z_final = zs[indices_final[i]]
 

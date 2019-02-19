@@ -444,9 +444,9 @@ def vis_square(images,
         # they're grayscale - convert to a colormap
         redmap, greenmap, bluemap = get_color_map(colormap)
 
-        red = np.interp(images * (len(redmap) - 1) / 255.0, xrange(len(redmap)), redmap)
-        green = np.interp(images * (len(greenmap) - 1) / 255.0, xrange(len(greenmap)), greenmap)
-        blue = np.interp(images * (len(bluemap) - 1) / 255.0, xrange(len(bluemap)), bluemap)
+        red = np.interp(images * (len(redmap) - 1) / 255.0, range(len(redmap)), redmap)
+        green = np.interp(images * (len(greenmap) - 1) / 255.0, range(len(greenmap)), greenmap)
+        blue = np.interp(images * (len(bluemap) - 1) / 255.0, range(len(bluemap)), bluemap)
 
         # Slap the channels back together
         images = np.concatenate((red[..., np.newaxis], green[..., np.newaxis], blue[..., np.newaxis]), axis=3)

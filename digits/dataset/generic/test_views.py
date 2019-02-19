@@ -138,7 +138,7 @@ class BaseViewsTestWithDataset(BaseViewsTest):
         if not hasattr(cls, 'imageset_folder'):
             # create a temporary folder
             cls.imageset_folder = tempfile.mkdtemp()
-            for i in xrange(num_images):
+            for i in range(num_images):
                 x = np.random.randint(
                     low=0,
                     high=256,
@@ -162,7 +162,7 @@ class BaseViewsTestWithDataset(BaseViewsTest):
         if not hasattr(cls, 'imageset_folder'):
             # create a temporary folder
             cls.imageset_folder = tempfile.mkdtemp()
-            for i in xrange(num_images):
+            for i in range(num_images):
                 image_width = np.random.randint(low=8, high=32)
                 image_height = np.random.randint(low=8, high=32)
                 x = np.random.randint(

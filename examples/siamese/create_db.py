@@ -99,7 +99,7 @@ def create_lmdbs(folder, file_list, image_count=None, db_batch_size=None):
         image_batch = []
         label_batch = []
 
-        for i in xrange(image_count):
+        for i in range(image_count):
             # pick up random indices from image list
             index1 = random.randint(0, len(images) - 1)
             index2 = random.randint(0, len(images) - 1)

@@ -282,7 +282,7 @@ def create_db(input_file, output_dir,
     write_queue = Queue.Queue(2 * batch_size)
     summary_queue = Queue.Queue()
 
-    for _ in xrange(num_threads):
+    for _ in range(num_threads):
         p = threading.Thread(target=_load_thread,
                              args=(load_queue, write_queue, summary_queue,
                                    image_width, image_height, image_channels,
@@ -355,7 +355,7 @@ def _create_tfrecords(image_count, write_queue, batch_size, output_dir,
 
     writers = []
     with open(os.path.join(output_dir, LIST_FILENAME), 'w') as outfile:
-        for shard_id in xrange(num_shards):
+        for shard_id in range(num_shards):
             shard_name = 'SHARD_%03d.tfrecords' % (shard_id)
             filename = os.path.join(output_dir, shard_name)
             writers.append(tf.python_io.TFRecordWriter(filename))
