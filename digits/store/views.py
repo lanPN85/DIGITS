@@ -92,7 +92,7 @@ def retrieve_files(url, directory, progress):
     model_url = os.path.join(url, directory)
     tmp_dir = tempfile.mkdtemp()
     tmp = requests.get(os.path.join(model_url, 'info.json')).content
-    info = json.loads(tmp)
+    info = json.loads(tmp.decode())
 
     # How many files will we download?
     n_files = 1 + ("model file" in info or "network file" in info) + ("labels file" in info)
@@ -167,7 +167,7 @@ def models():
         app.config['store_cache'].reset()
     cached_data = app.config['store_cache'].read()
     if cached_data is not None:
-        return json.dumps(cached_data.decode())
+        return json.dumps(cached_data)
 
     store_urls = app.config['store_url_list']
     aggregated_dict = dict()
@@ -183,7 +183,7 @@ def models():
         try:
             response = requests.get(os.path.join(store_base_url, 'master.json'))
             if response.status_code == 200:
-                json_response = json.loads(response.content)
+                json_response = json.loads(response.content.decode())
                 dirs = json_response['children']
                 msg = json_response['msg']
             else:  # try to retrieve from directory listing
@@ -203,11 +203,11 @@ def models():
             tmp_dict = {'dir_name': subdir}
             response = requests.get(os.path.join(store_base_url, subdir, 'info.json'))
             if response.status_code == 200:
-                tmp_dict['info'] = json.loads(response.content)
+                tmp_dict['info'] = json.loads(response.content.decode())
                 tmp_dict['id'] = str(uuid.uuid4())
             response = requests.get(os.path.join(store_base_url, subdir, 'aux.json'))
             if response.status_code == 200:
-                tmp_dict['aux'] = json.loads(response.content)
+                tmp_dict['aux'] = json.loads(response.content.decode())
             model_list.append(tmp_dict)
         store_info = {'base_url': store_base_url, 'welcome_msg': msg,
                       'model_list': model_list}
