@@ -1478,7 +1478,7 @@ class CaffeTrainTask(TrainTask):
             if outputs is None:
                 outputs = copy.deepcopy(output)
             else:
-                for name, blob in output.iteritems():
+                for name, blob in output.items():
                     outputs[name] = np.vstack((outputs[name], blob))
             print('Processed %s/%s images' % (len(outputs[outputs.keys()[0]]), len(caffe_images)))
 
