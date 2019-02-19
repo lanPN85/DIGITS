@@ -6,6 +6,7 @@ import re
 
 import caffe.draw
 import caffe_pb2
+import base64
 from google.protobuf import text_format
 
 from .errors import BadNetworkError
@@ -145,7 +146,7 @@ class CaffeFramework(Framework):
         if not net.name:
             net.name = 'Network'
         return ('<image src="data:image/png;base64,' +
-                caffe.draw.draw_net(net, 'UD').encode('base64') +
+                base64.b64encode(caffe.draw.draw_net(net, 'UD')).decode() +
                 '" style="max-width:100%" />')
 
     @override

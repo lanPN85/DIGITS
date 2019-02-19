@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 
 import math
+import base64
 import os.path
 import requests
 
@@ -317,7 +318,7 @@ def embed_image_html(image):
 
     string_buf = StringIO()
     image.save(string_buf, format=fmt)
-    data = string_buf.getvalue().encode('base64').replace('\n', '')
+    data = base64.b64encode(string_buf.getvalue()).decode()
     return 'data:image/%s;base64,%s' % (fmt, data)
 
 

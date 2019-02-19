@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 
 import os
+import base64
 
 # Find the best implementation available
 try:
@@ -100,7 +101,7 @@ class Visualization(VisualizationInterface):
             string_buf = StringIO()
             fmt = "gif"
             imageio.mimsave(string_buf, self.animated_images, format=fmt)
-            data = string_buf.getvalue().encode('base64').replace('\n', '')
+            data = base64.b64encode(string_buf.getvalue()).decode()
             animated_image_html = 'data:image/%s;base64,%s' % (fmt, data)
             context['animated_image'] = animated_image_html
 
